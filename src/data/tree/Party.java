@@ -3,14 +3,14 @@ package data.tree;
 import java.util.ArrayList;
 
 public class Party extends Node {
-	public ArrayList<Entity> entities;
+	public ArrayList<EntityNode> entities;
 
 	public Party(String name) {
 		super(name);
-		entities = new ArrayList<Entity>();
+		entities = new ArrayList<EntityNode>();
 	}
 
-	public void addEntity(Entity f) {
+	public void addEntity(EntityNode f) {
 		entities.add(f);
 	}
 

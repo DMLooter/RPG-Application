@@ -6,8 +6,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import main.Field;
-
 public class TreeListener implements TreeModelListener, TreeSelectionListener {
 
 	public static TreeListener main = new TreeListener();

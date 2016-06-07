@@ -54,7 +54,7 @@ public class DataListener implements TreeModelListener, CellEditorListener {
 		} else if (n instanceof StringField) {
 			((StringField) n).value = (String) f.value;
 			System.out.println(f.value+": s");
-		} else if(n instanceof Section || n instanceof Entity){
+		} else if(n instanceof Section || n instanceof EntityNode){
 			((Node) n).name = (String) f.value;
 			System.out.println(f.value+": n");
 		}
