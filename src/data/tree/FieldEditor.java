@@ -18,7 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreePath;
 
-class FieldEditor extends AbstractCellEditor implements TreeCellEditor {
+public class FieldEditor extends AbstractCellEditor implements TreeCellEditor {
 	FieldRenderer renderer = new FieldRenderer();
 	JSpinner spinner = new JSpinner();
 	JTextPane pane = new JTextPane();

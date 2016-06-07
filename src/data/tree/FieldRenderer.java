@@ -13,7 +13,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
-class FieldRenderer implements TreeCellRenderer {
+public class FieldRenderer implements TreeCellRenderer {
 	JLabel nameLabel = new JLabel(" ");
 	JTextPane valueLabel = new JTextPane();
 	FieldPanel renderer = new FieldPanel();
@@ -124,7 +124,7 @@ class FieldRenderer implements TreeCellRenderer {
 
 				nameRenderer.setEnabled(tree.isEnabled());
 				returnValue = nameRenderer;
-			} else if (userObject instanceof Entity) {
+			} else if (userObject instanceof EntityNode) {
 				nameLabel.setFont(fHead);
 				nameLabel.setText(userObject.name);
 				nameLabel.setPreferredSize(

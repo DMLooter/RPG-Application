@@ -1,4 +1,4 @@
-package main;
+package deprecated.main;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 

@@ -2,10 +2,10 @@ package data.tree;
 
 import java.util.ArrayList;
 
-public class Entity extends Node {
+public class EntityNode extends Node {
 	public ArrayList<Section> sections;
 
-	public Entity(String name) {
+	public EntityNode(String name) {
 		super(name);
 		sections = new ArrayList<Section>();
 	}

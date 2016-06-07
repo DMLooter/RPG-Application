@@ -27,11 +27,12 @@ public class Main {
 	public static JCheckBoxMenuItem cbMenuItem;
 
 	public static void main(String[] args) {
-		try {
+		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
-		}
+		}*/
 		entities.add(new Entity("Bob"));
 		entities.add(new Entity("Joe"));
 		frame = new JFrame("DND");
@@ -49,20 +50,20 @@ public class Main {
 	public static void menuBar() {
 		menuBar = new JMenuBar();
 
-		//Build the first menu.
+		// Build the first menu.
 		menu = new JMenu("Character");
 		menu.setMnemonic(KeyEvent.VK_C);
 		menu.getAccessibleContext().setAccessibleDescription("Character Menu");
 		menuBar.add(menu);
 
-		//a group of JMenuItems
+		// a group of JMenuItems
 		menuItem = new JMenuItem("Create Character", KeyEvent.VK_C);
 		menuItem.addActionListener(Input.main);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Create a new Character");
 		menu.add(menuItem);
 
-		//a group of radio button menu items
+		// a group of radio button menu items
 		menu.addSeparator();
 		ButtonGroup group = new ButtonGroup();
 		rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
@@ -76,7 +77,7 @@ public class Main {
 		group.add(rbMenuItem);
 		menu.add(rbMenuItem);
 
-		//a group of check box menu items
+		// a group of check box menu items
 		menu.addSeparator();
 		cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
 		cbMenuItem.setMnemonic(KeyEvent.VK_C);
@@ -86,7 +87,7 @@ public class Main {
 		cbMenuItem.setMnemonic(KeyEvent.VK_H);
 		menu.add(cbMenuItem);
 
-		//a submenu
+		// a submenu
 		menu.addSeparator();
 		submenu = new JMenu("A submenu");
 		submenu.setMnemonic(KeyEvent.VK_S);
@@ -99,23 +100,23 @@ public class Main {
 		submenu.add(menuItem);
 		menu.add(submenu);
 
-		//Build second menu in the menu bar.
+		// Build second menu in the menu bar.
 		menu = new JMenu("Game");
 		menu.setMnemonic(KeyEvent.VK_G);
 		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
-		
+
 		menuItem = new JMenuItem("Create Server", KeyEvent.VK_S);
 		menuItem.addActionListener(Input.main);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Create a new Server");
 		menu.add(menuItem);
-		
+
 		menuItem = new JMenuItem("Join Server", KeyEvent.VK_J);
 		menuItem.addActionListener(Input.main);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Join a Server");
 		menu.add(menuItem);
-		
+
 	}
 }
