@@ -3,7 +3,6 @@ package chat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import chat.main.Start;
 import chat.server.Server;
 
 public class Bot {
@@ -21,7 +20,7 @@ public class Bot {
 	}
 
 	public void compare(String s) {
-		//System.out.println(s.indexOf("!"));
+		// System.out.println(s.indexOf("!"));
 		String user;
 		if (s.contains(":")) {
 			user = s.substring(0, s.indexOf(":"));
@@ -37,19 +36,27 @@ public class Bot {
 				command = d.substring(1, d.indexOf(" "));
 			}
 			if (command.equals("cmdadd")) {
-				String newCommand = d.substring(d.indexOf(" ") + 1).substring(0, d.substring(d.indexOf(" ") + 1).indexOf(" "));
-				String output = d.substring(d.indexOf(" ") + 1).substring(d.substring(d.indexOf(" ") + 1).indexOf(" ") + 1);
+				String newCommand = d.substring(d.indexOf(" ") + 1).substring(0,
+						d.substring(d.indexOf(" ") + 1).indexOf(" "));
+				String output = d.substring(d.indexOf(" ") + 1)
+						.substring(d.substring(d.indexOf(" ") + 1).indexOf(" ") + 1);
 				Commands.put(newCommand, output);
 				Server.Messages.add(Name + ": " + user + " added Command: " + newCommand);
-				Start.ServerRoom.newMessage(Name + ": " + user + " added Command: " + newCommand);
+				LogScreen.serverRoom.newMessage(Name + ": " + user + " added Command: " + newCommand);
 			}
 			if (Commands.containsKey(command)) {
 				Server.Messages.add(Name + ": " + user + " - " + Commands.get(command));
-				Start.ServerRoom.newMessage(Name + ": " + user + " - " + Commands.get(command));
+				LogScreen.serverRoom.newMessage(Name + ": " + user + " - " + Commands.get(command));
 			}
-		} else if (d.toLowerCase().replaceAll("\\s+", "").contains("shit") || d.toLowerCase().replaceAll("\\s+", "").contains("piss") || d.toLowerCase().replaceAll("\\s+", "").contains("fuck") || d.toLowerCase().replaceAll("\\s+", "").contains("cunt") || d.toLowerCase().replaceAll("\\s+", "").contains("cocksucker") || d.toLowerCase().replaceAll("\\s+", "").contains("motherfucker") || d.toLowerCase().replaceAll("\\s+", "").contains("tits")) {
+		} else if (d.toLowerCase().replaceAll("\\s+", "").contains("shit")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("piss")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("fuck")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("cunt")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("cocksucker")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("motherfucker")
+				|| d.toLowerCase().replaceAll("\\s+", "").contains("tits")) {
 			Server.Messages.add(Name + ": " + user + "has been timed out for being non-FCC approved.");
-			Start.ServerRoom.newMessage(Name + ": " + user + " has been timed out for being non-FCC approved.");
+			LogScreen.serverRoom.newMessage(Name + ": " + user + " has been timed out for being non-FCC approved.");
 		}
 	}
 }

@@ -101,15 +101,20 @@ public class Main {
 		menu.add(submenu);
 
 		// Build second menu in the menu bar.
-		menu = new JMenu("Game");
+		menu = new JMenu("Network");
 		menu.setMnemonic(KeyEvent.VK_G);
-		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
+		menu.getAccessibleContext().setAccessibleDescription("Network Settings");
 		menuBar.add(menu);
 
 		menuItem = new JMenuItem("Create Server", KeyEvent.VK_S);
 		menuItem.addActionListener(Input.main);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Create a new Server");
+		menu.add(menuItem);
+		
+		menuItem = new JMenuItem("Quick Host Server", KeyEvent.VK_Q);
+		menuItem.addActionListener(Input.main);
+		menuItem.getAccessibleContext().setAccessibleDescription("Quickly create a new Server");
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Join Server", KeyEvent.VK_J);

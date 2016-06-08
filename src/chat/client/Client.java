@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import chat.main.Start;
+import chat.LogScreen;
 
 class Client extends Thread {
 	public static ArrayList<String> Messages = new ArrayList<String>(10);
@@ -40,7 +40,7 @@ class Client extends Thread {
 	public void Listen() throws IOException {
 		String i;
 		while ((i = in.readLine()) != null) {
-			Start.ClientRoom.newMessage(i);
+			LogScreen.clientRoom.newMessage(i);
 		}
 	}
 

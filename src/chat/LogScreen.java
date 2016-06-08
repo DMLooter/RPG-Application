@@ -11,13 +11,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 import chat.client.ChatRoomClient;
-import chat.main.Start;
 import chat.server.ChatRoom;
 import chat.server.Server;
+import chat.server.ServerCreation;
 
 public class LogScreen extends JPanel implements ActionListener {
-	public ChatRoom serverRoom;
-	public ChatRoomClient clientRoom;
+	public static ChatRoom serverRoom;
+	public static ChatRoomClient clientRoom;
+
+	public static Thread creationThread;
+
+	public String userName;
 
 	public JTextArea chat = new JTextArea();
 	public JScrollPane cont = new JScrollPane(chat);
@@ -41,9 +45,12 @@ public class LogScreen extends JPanel implements ActionListener {
 
 	public void host() {
 		clientRoom = null;
-		serverRoom = new ChatRoom();
-		add(serverRoom);
-		repaint();
+		ServerCreation.createServer();
+	}
+
+	public void quickHost() {
+		clientRoom = null;
+		serverRoom = new ChatRoom("RPG", false, "", 100, false, null, 13579);
 	}
 
 	public void join(Socket s) {
@@ -59,26 +66,26 @@ public class LogScreen extends JPanel implements ActionListener {
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = Start.UserName + ": " + i;
+					String s = userName + ": " + i;
 					clientRoom.out.println(s);
 					Input.setText("");
 				}
 			}
-		}else if(serverRoom != null){
+		} else if (serverRoom != null) {
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = Start.UserName + ": " + i;
+					String s = userName + ": " + i;
 					serverRoom.newMessage(s);
 					Server.Messages.add(s);
 					Input.setText("");
 				}
 			}
-		}else{
+		} else {
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = Start.UserName + ": " + i;
+					String s = userName + ": " + i;
 					chat.append(s + "\n");
 					Input.setText("");
 				}

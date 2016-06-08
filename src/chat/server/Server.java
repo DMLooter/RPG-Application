@@ -7,12 +7,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import chat.LogScreen;
 import chat.main.MultiArray;
-import chat.main.Start;
 
 public class Server extends Thread {
 	public static ChatRoom ServerRoom;
-	public static MultiArray<Socket, PrintWriter, BufferedReader> Clients = new MultiArray<Socket, PrintWriter, BufferedReader>(50);
+	public static MultiArray<Socket, PrintWriter, BufferedReader> Clients = new MultiArray<Socket, PrintWriter, BufferedReader>(
+			50);
 	public static ArrayList<String> Messages = new ArrayList<String>(10);
 
 	public int mode;
@@ -68,7 +69,7 @@ public class Server extends Thread {
 		String i;
 		while ((i = in.readLine()) != null) {
 			Messages.add(i);
-			Start.ServerRoom.newMessage(i);
+			LogScreen.serverRoom.newMessage(i);
 		}
 	}
 
