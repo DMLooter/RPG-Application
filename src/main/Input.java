@@ -11,6 +11,7 @@ import java.net.Socket;
 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import chat.LogScreen;
 
@@ -69,18 +70,41 @@ public class Input implements KeyListener, MouseListener, ActionListener {
 		} else if (((JMenuItem) e.getSource()).getText().equals("Join Server")) {
 			new Thread() {
 				public void run() {
-					String ip = (String) JOptionPane.showInputDialog(Main.frame, "Input a Hostname/IP", "Join a Server",
-							JOptionPane.PLAIN_MESSAGE);
-					System.out.println(ip);
-					if (ip != null) {
-						Socket so = null;
+
+					JTextField ipF = new JTextField();
+					JTextField portF = new JTextField("13579");
+					Object[] message = { "HostName/IP:", ipF, "Port:", portF };
+
+					int option = JOptionPane.showConfirmDialog(null, message, "Join Server",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						String ip = ipF.getText();
+						int port;
 						try {
-							so = new Socket(ip, 13579);
-						} catch (IOException e) {
-							e.printStackTrace();
+							port = Integer.parseInt(portF.getText());
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(null, "Port number invalid.", "Parse error",
+									JOptionPane.ERROR_MESSAGE);
+							return;
 						}
-						Main.mainScreen.logScreen.join(so);
+						System.out.println(ip);
+						if (ip != null) {
+							Socket so = null;
+							try {
+								so = new Socket(ip, port);
+							} catch (IOException e) {
+								JOptionPane.showMessageDialog(null, "Connection Failed.", "Connection error",
+										JOptionPane.ERROR_MESSAGE);
+								Main.mainScreen.logScreen.chat
+										.append("Connection to server " + ip + ":" + port + " failed." + "\n");
+								return;
+							}
+							Main.mainScreen.logScreen.join(so);
+						}
+					} else {
+						System.out.println("Login canceled");
 					}
+
 				}
 			}.start();
 		}

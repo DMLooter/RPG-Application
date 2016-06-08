@@ -55,7 +55,7 @@ public class LogScreen extends JPanel implements ActionListener {
 
 	public void join(Socket s) {
 		serverRoom = null;
-		clientRoom = new ChatRoomClient("DND", s);
+		clientRoom = new ChatRoomClient("RPG", s);
 		add(clientRoom);
 		repaint();
 	}
