@@ -122,6 +122,11 @@ public class Main {
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Join a Server");
 		menu.add(menuItem);
-
+		
+		menu.addSeparator();
+		menuItem = new JMenuItem("Change Username", KeyEvent.VK_U);
+		menuItem.addActionListener(Input.main);
+		menuItem.getAccessibleContext().setAccessibleDescription("Change your Username");
+		menu.add(menuItem);
 	}
 }

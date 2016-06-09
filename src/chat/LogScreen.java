@@ -21,7 +21,7 @@ public class LogScreen extends JPanel implements ActionListener {
 
 	public static Thread creationThread;
 
-	public String userName;
+	public static String userName = "Bob";
 
 	public JTextArea chat = new JTextArea();
 	public JScrollPane cont = new JScrollPane(chat);

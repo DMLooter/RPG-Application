@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import chat.LogScreen;
+import chat.server.Server;
 
 public class Input implements KeyListener, MouseListener, ActionListener {
 	public static Input main = new Input();
@@ -103,6 +104,30 @@ public class Input implements KeyListener, MouseListener, ActionListener {
 						}
 					} else {
 						System.out.println("Login canceled");
+					}
+
+				}
+			}.start();
+		} else if (((JMenuItem) e.getSource()).getText().equals("Change Username")) {
+			new Thread() {
+				public void run() {
+
+					JTextField usernameF = new JTextField();
+					Object[] message = { "Username:", usernameF };
+
+					int option = JOptionPane.showConfirmDialog(Main.frame, message, "Join Server",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						String U = usernameF.getText();
+						if (LogScreen.serverRoom != null) {
+							LogScreen.serverRoom.newMessage(LogScreen.userName + " changed their username to:  " + U);
+							Server.Messages.add(LogScreen.userName + " changed their username to:  " + U);
+						} else if (LogScreen.clientRoom != null) {
+							LogScreen.clientRoom.out.println(LogScreen.userName + " changed their username to:  " + U);
+						}
+						LogScreen.userName = U;
+					} else {
+						System.out.println("Name Change Canceled");
 					}
 
 				}
