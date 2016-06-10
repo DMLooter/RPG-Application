@@ -14,14 +14,23 @@ import data.tree.Field;
 import data.tree.FieldEditor;
 import data.tree.FieldRenderer;
 import data.tree.IntegerField;
-import data.tree.Node;
 import data.tree.Party;
 import data.tree.Root;
 import data.tree.Section;
 
+/**
+ * Screen used to display {@link Entity Entity's} data in a {@link JTree} using
+ * a custom {@link EntityDataModel}.
+ * 
+ * @author Michael
+ *
+ */
 public class DataScreen extends JPanel {
 	JTree tree;
 
+	/**
+	 * Method to initialize the Screen, calls {@link #setupTree() setupTree}.
+	 */
 	public DataScreen() {
 		super(null, true);
 		setBounds(0, 0, 300, 400);
@@ -31,6 +40,11 @@ public class DataScreen extends JPanel {
 		add(treeView);
 	}
 
+	/**
+	 * Initializes the {@link JTree} by activating the {@link FieldRenderer
+	 * renderer} and {@link FieldEditor editor} for the {@link EntityDataModel},
+	 * and calling {@link #updateNodes(Root) updateNodes} on the root node.
+	 */
 	public void setupTree() {
 		DataListener listener = new DataListener();
 		Root top = new Root("Parties");
@@ -51,6 +65,12 @@ public class DataScreen extends JPanel {
 		tree.setEditable(true);
 	}
 
+	/**
+	 * Method for updating the tree when the Entity list is updated.
+	 * 
+	 * @param top
+	 *            the root node of the tree.
+	 */
 	public void updateNodes(Root top) {
 		Party party = null;
 		Section category = null;

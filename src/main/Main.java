@@ -16,8 +16,19 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
+	/**
+	 * List of entities to be displayed.
+	 * TODO Move this to a data package or with DataScreen.
+	 */
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	
+	/**
+	 * Main Frame of the application. 
+	 */
 	public static JFrame frame;
+	/**
+	 * Central Panel of the application. Contains all the other screens in the game, including {@link DataScreen}, {@link GameScreen}, and {@link chat.LogScreen}.
+	 */
 	public static Screen mainScreen;
 
 	public static JMenuBar menuBar;
@@ -26,6 +37,10 @@ public class Main {
 	public static JRadioButtonMenuItem rbMenuItem;
 	public static JCheckBoxMenuItem cbMenuItem;
 
+	
+	/**
+	 * Entry point for the application.
+	 */
 	public static void main(String[] args) {
 		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -47,6 +62,9 @@ public class Main {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Sets up the Menu Bar for the application.
+	 */
 	public static void menuBar() {
 		menuBar = new JMenuBar();
 

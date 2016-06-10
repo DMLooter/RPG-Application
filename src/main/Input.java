@@ -16,6 +16,12 @@ import javax.swing.JTextField;
 import chat.LogScreen;
 import chat.server.Server;
 
+/**
+ * Simple input class to handle input from the menubar.
+ * TODO add Mouse/Key input from GameScreen
+ * @author Michael
+ *
+ */
 public class Input implements KeyListener, MouseListener, ActionListener {
 	public static Input main = new Input();
 
