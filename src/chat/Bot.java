@@ -4,21 +4,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import chat.server.Server;
-
+/**
+ * Simple bot class to regulate chat through commands and filtering. Made to be expandable through custom commands and extension of mods.
+ * @author Michael
+ *
+ */
 public class Bot {
 	public String Name;
 	ArrayList<String> buffer = new ArrayList<String>();
 	HashMap<String, String> Commands = new HashMap<String, String>();
-
+	
+	/**
+	 * Initiates a bot with the specified name, and has it say hello to the chat.
+	 * @param name name of the bot.
+	 */
 	public Bot(String name) {
 		Name = name;
 		System.out.println("hi");
 	}
-
+	
+	/**
+	 * All messages going through the server are sent through the bot, which compares it to command strings and banned words.
+	 * @param s message to be read over.
+	 */
 	public void message(String s) {
 		compare(s);
 	}
 
+	/**
+	 * Compares The passed string to Commands and Banned words.
+	 * @param s string to parse
+	 */
 	public void compare(String s) {
 		// System.out.println(s.indexOf("!"));
 		String user;
