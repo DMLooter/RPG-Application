@@ -5,8 +5,10 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import combat.Entity;
 import data.tree.DataListener;
 import data.tree.EntityDataModel;
 import data.tree.EntityNode;
@@ -14,6 +16,7 @@ import data.tree.Field;
 import data.tree.FieldEditor;
 import data.tree.FieldRenderer;
 import data.tree.IntegerField;
+import data.tree.Node;
 import data.tree.Party;
 import data.tree.Root;
 import data.tree.Section;
@@ -27,6 +30,8 @@ import data.tree.Section;
  */
 public class DataScreen extends JPanel {
 	JTree tree;
+	EntityDataModel treeModel;
+	Root top;
 
 	/**
 	 * Method to initialize the Screen, calls {@link #setupTree() setupTree}.
@@ -47,13 +52,14 @@ public class DataScreen extends JPanel {
 	 */
 	public void setupTree() {
 		DataListener listener = new DataListener();
-		Root top = new Root("Parties");
-		EntityDataModel treeModel = new EntityDataModel(top);
+		top = new Root("Parties");
+		treeModel = new EntityDataModel(top);
 		treeModel.addTreeModelListener(listener);
 
 		updateNodes(top);
 
 		tree = new JTree(treeModel);
+		tree.setRootVisible(false);
 		tree.setRowHeight(0);
 		FieldRenderer renderer = new FieldRenderer();
 		tree.setCellRenderer(renderer);
@@ -64,6 +70,18 @@ public class DataScreen extends JPanel {
 		tree.setCellEditor(editor);
 		tree.setEditable(true);
 	}
+	
+	public void redraw(Node n){
+		((EntityDataModel) tree.getModel()).nodeStructureChanged(n);
+	}
+	
+	public void updateNodes(){
+		top.clear();
+		updateNodes(top);
+		((EntityDataModel) tree.getModel()).reload();
+		tree.updateUI();
+		System.out.println("FOUND");
+	}
 
 	/**
 	 * Method for updating the tree when the Entity list is updated.
@@ -71,7 +89,7 @@ public class DataScreen extends JPanel {
 	 * @param top
 	 *            the root node of the tree.
 	 */
-	public void updateNodes(Root top) {
+	public static void updateNodes(Root top) {
 		Party party = null;
 		Section category = null;
 		EntityNode entity = null;
@@ -87,18 +105,23 @@ public class DataScreen extends JPanel {
 			category = new Section("Ability Scores");
 			entity.addSection(category);
 
-			field = new IntegerField("Str", e.Str, 0, 20);
+			field = new IntegerField("Str", e.Str, 0, 20, e.ID, "Str");
+			System.out.println(e.Str);
 			category.addField(field);
-			field = new IntegerField("Con", e.Con, 0, 20);
+			field = new IntegerField("Con", e.Con, 0, 20, e.ID, "Con");
 			category.addField(field);
-			field = new IntegerField("Dex", e.Dex, 0, 20);
+			field = new IntegerField("Dex", e.Dex, 0, 20, e.ID, "Dex");
 			category.addField(field);
-			field = new IntegerField("Int", e.Int, 0, 20);
+			field = new IntegerField("Int", e.Int, 0, 20, e.ID, "Int");
 			category.addField(field);
-			field = new IntegerField("Wis", e.Wis, 0, 20);
+			field = new IntegerField("Wis", e.Wis, 0, 20, e.ID, "Wis");
 			category.addField(field);
-			field = new IntegerField("Cha", e.Cha, 0, 20);
+			field = new IntegerField("Cha", e.Cha, 0, 20, e.ID, "Cha");
 			category.addField(field);
 		}
+	}
+
+	public Root getRootNode(){
+		return top;
 	}
 }
