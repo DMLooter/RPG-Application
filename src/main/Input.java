@@ -1,5 +1,4 @@
 package main;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -8,134 +7,61 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
-import chat.LogScreen;
-import chat.server.Server;
-
-/**
- * Simple input class to handle input from the menubar.
- * TODO add Mouse/Key input from GameScreen
- * @author Michael
- *
- */
 public class Input implements KeyListener, MouseListener, ActionListener {
 	public static Input main = new Input();
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-	}
+	public void keyReleased(KeyEvent e) {}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getSource());
 		if (((JMenuItem) e.getSource()).getText().equals("Create Server")) {
-			LogScreen.creationThread = new Thread() {
+			new Thread() {
 				public void run() {
 					Main.mainScreen.logScreen.host();
 				}
-			};
-			LogScreen.creationThread.start();
-		} else if (((JMenuItem) e.getSource()).getText().equals("Quick Host Server")) {
-			LogScreen.creationThread = new Thread() {
-				public void run() {
-					Main.mainScreen.logScreen.quickHost();
-				}
-			};
-			LogScreen.creationThread.start();
+			}.start();
 		} else if (((JMenuItem) e.getSource()).getText().equals("Join Server")) {
 			new Thread() {
 				public void run() {
-
-					JTextField ipF = new JTextField();
-					JTextField portF = new JTextField("13579");
-					Object[] message = { "HostName/IP:", ipF, "Port:", portF };
-
-					int option = JOptionPane.showConfirmDialog(null, message, "Join Server",
-							JOptionPane.OK_CANCEL_OPTION);
-					if (option == JOptionPane.OK_OPTION) {
-						String ip = ipF.getText();
-						int port;
+					String ip = (String) JOptionPane.showInputDialog(Main.frame, "Input a Hostname/IP", "Join a Server", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(ip);
+					if (ip != null) {
+						Socket so = null;
 						try {
-							port = Integer.parseInt(portF.getText());
-						} catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(null, "Port number invalid.", "Parse error",
-									JOptionPane.ERROR_MESSAGE);
-							return;
+							so = new Socket(ip, 13579);
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-						System.out.println(ip);
-						if (ip != null) {
-							Socket so = null;
-							try {
-								so = new Socket(ip, port);
-							} catch (IOException e) {
-								JOptionPane.showMessageDialog(null, "Connection Failed.", "Connection error",
-										JOptionPane.ERROR_MESSAGE);
-								Main.mainScreen.logScreen.chat
-										.append("Connection to server " + ip + ":" + port + " failed." + "\n");
-								return;
-							}
-							Main.mainScreen.logScreen.join(so);
-						}
-					} else {
-						System.out.println("Login canceled");
+						Main.mainScreen.logScreen.join(so);
 					}
-
-				}
-			}.start();
-		} else if (((JMenuItem) e.getSource()).getText().equals("Change Username")) {
-			new Thread() {
-				public void run() {
-
-					JTextField usernameF = new JTextField();
-					Object[] message = { "Username:", usernameF };
-
-					int option = JOptionPane.showConfirmDialog(Main.frame, message, "Join Server",
-							JOptionPane.OK_CANCEL_OPTION);
-					if (option == JOptionPane.OK_OPTION) {
-						String U = usernameF.getText();
-						if (LogScreen.serverRoom != null) {
-							LogScreen.serverRoom.newMessage(LogScreen.userName + " changed their username to:  " + U);
-							Server.Messages.add(LogScreen.userName + " changed their username to:  " + U);
-						} else if (LogScreen.clientRoom != null) {
-							LogScreen.clientRoom.out.println(LogScreen.userName + " changed their username to:  " + U);
-						}
-						LogScreen.userName = U;
-					} else {
-						System.out.println("Name Change Canceled");
-					}
-
 				}
 			}.start();
 		}

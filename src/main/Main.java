@@ -12,23 +12,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
-
-import combat.Entity;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
-	/**
-	 * List of entities to be displayed.
-	 * TODO Move this to a data package or with DataScreen.
-	 */
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
-	
-	/**
-	 * Main Frame of the application. 
-	 */
 	public static JFrame frame;
-	/**
-	 * Central Panel of the application. Contains all the other screens in the game, including {@link DataScreen}, {@link GameScreen}, and {@link chat.LogScreen}.
-	 */
 	public static Screen mainScreen;
 
 	public static JMenuBar menuBar;
@@ -37,10 +26,6 @@ public class Main {
 	public static JRadioButtonMenuItem rbMenuItem;
 	public static JCheckBoxMenuItem cbMenuItem;
 
-	
-	/**
-	 * Entry point for the application.
-	 */
 	public static void main(String[] args) {
 		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -62,9 +47,6 @@ public class Main {
 		frame.setVisible(true);
 	}
 
-	/**
-	 * Sets up the Menu Bar for the application.
-	 */
 	public static void menuBar() {
 		menuBar = new JMenuBar();
 
@@ -119,9 +101,9 @@ public class Main {
 		menu.add(submenu);
 
 		// Build second menu in the menu bar.
-		menu = new JMenu("Network");
+		menu = new JMenu("Game");
 		menu.setMnemonic(KeyEvent.VK_G);
-		menu.getAccessibleContext().setAccessibleDescription("Network Settings");
+		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
 
 		menuItem = new JMenuItem("Create Server", KeyEvent.VK_S);
@@ -129,22 +111,12 @@ public class Main {
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Create a new Server");
 		menu.add(menuItem);
-		
-		menuItem = new JMenuItem("Quick Host Server", KeyEvent.VK_Q);
-		menuItem.addActionListener(Input.main);
-		menuItem.getAccessibleContext().setAccessibleDescription("Quickly create a new Server");
-		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Join Server", KeyEvent.VK_J);
 		menuItem.addActionListener(Input.main);
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
 		menuItem.getAccessibleContext().setAccessibleDescription("Join a Server");
 		menu.add(menuItem);
-		
-		menu.addSeparator();
-		menuItem = new JMenuItem("Change Username", KeyEvent.VK_U);
-		menuItem.addActionListener(Input.main);
-		menuItem.getAccessibleContext().setAccessibleDescription("Change your Username");
-		menu.add(menuItem);
+
 	}
 }

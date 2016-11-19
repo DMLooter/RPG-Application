@@ -9,10 +9,6 @@ public class Root extends Node {
 		super(name);
 		parties = new ArrayList<Party>();
 	}
-	
-	public void clear(){
-		parties.clear();
-	}
 
 	public void addParty(Party f) {
 		parties.add(f);
