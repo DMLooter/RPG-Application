@@ -3,19 +3,17 @@ package data.tree;
 import java.util.Vector;
 
 import javax.swing.event.TreeModelListener;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-public class EntityDataModel extends DefaultTreeModel implements TreeModel {
+public class EntityDataModel implements TreeModel {
 	private Vector<TreeModelListener> treeModelListeners = new Vector<TreeModelListener>();
 	private Node root;
 
-	public EntityDataModel(Node root) {
-		super(root);
+	public EntityDataModel(Node root){
 		this.root = root;
 	}
-
+	
 	public void addTreeModelListener(TreeModelListener l) {
 		treeModelListeners.addElement(l);
 	}

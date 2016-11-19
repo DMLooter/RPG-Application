@@ -1,7 +1,6 @@
-package chat.server;
+package chat.main;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -17,7 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import chat.LogScreen;
+import chat.server.ChatRoom;
 
 public class Host extends JPanel implements ItemListener, ActionListener {
 	public JTextField Name = new JTextField();
@@ -45,7 +44,7 @@ public class Host extends JPanel implements ItemListener, ActionListener {
 
 	public Host() {
 		super(null, true);
-		setPreferredSize(new Dimension(600, 600));
+		setSize(600, 600);
 		Pass.setEnabled(false);
 		Browse.setEnabled(false);
 		LogFile.setEnabled(false);
@@ -89,24 +88,19 @@ public class Host extends JPanel implements ItemListener, ActionListener {
 		g.setFont(new Font("Arial", 0, 15));
 		fm = g.getFontMetrics();
 		if (NameShort) {
-			g.drawString("Name must be more than 5 characters",
-					300 - fm.stringWidth("Name must be more than 5 characters") / 2, 140);
+			g.drawString("Name must be more than 5 characters", 300 - fm.stringWidth("Name must be more than 5 characters") / 2, 140);
 		}
 		if (PassShort && Visibility.getSelectedIndex() == 1) {
-			g.drawString("Password must be more than 4 characters",
-					300 - fm.stringWidth("Password must be more than 4 characters") / 2, 240);
+			g.drawString("Password must be more than 4 characters", 300 - fm.stringWidth("Password must be more than 4 characters") / 2, 240);
 		}
 		if (NumToBig) {
-			g.drawString("Must be an Integer between 2 and 100",
-					300 - fm.stringWidth("Must be an Integer between 2 and 100") / 2, 290);
+			g.drawString("Must be an Integer between 2 and 100", 300 - fm.stringWidth("Must be an Integer between 2 and 100") / 2, 290);
 		}
 		if (LogFileNotRight && Log.getSelectedIndex() == 1) {
-			g.drawString("LogFile must be a valid Text file",
-					300 - fm.stringWidth("LogFile must be a valid Text file") / 2, 340);
+			g.drawString("LogFile must be a valid Text file", 300 - fm.stringWidth("LogFile must be a valid Text file") / 2, 340);
 		}
 		if (PortWrong) {
-			g.drawString("Must be an Integer between 1025 and 49151",
-					300 - fm.stringWidth("Must be an Integer between 1025 and 49151") / 2, 390);
+			g.drawString("Must be an Integer between 1025 and 49151", 300 - fm.stringWidth("Must be an Integer between 1025 and 49151") / 2, 390);
 		}
 	}
 
@@ -187,10 +181,13 @@ public class Host extends JPanel implements ItemListener, ActionListener {
 				PortWrong = true;
 			}
 			if (!PortWrong && !LogFileNotRight && !NumToBig && !PassShort && !NameShort) {
-				LogScreen.serverRoom = new ChatRoom(Name.getText(), Visibility.getSelectedIndex() == 1, Pass.getText(),
-						Integer.parseInt(Num.getText()), Log.getSelectedIndex() == 1, new File(LogFile.getText()),
-						Integer.parseInt(Port.getText()));
-				LogScreen.creationThread.interrupt();
+				Start.ServerRoom = new ChatRoom(Name.getText(), Visibility.getSelectedIndex() == 1, Pass.getText(), Integer.parseInt(Num.getText()), Log.getSelectedIndex() == 1, new File(LogFile.getText()), Integer.parseInt(Port.getText()));
+				Start.Frame.revalidate();
+				Start.Frame.repaint();
+				Start.Frame.getContentPane().removeAll();
+				Start.Frame.add(Start.ServerRoom);
+				Start.Frame.revalidate();
+				Start.Frame.repaint();
 				return;
 			}
 			repaint();

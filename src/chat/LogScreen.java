@@ -11,24 +11,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 import chat.client.ChatRoomClient;
+import chat.main.Start;
 import chat.server.ChatRoom;
 import chat.server.Server;
-import chat.server.ServerCreation;
 
-/**
- * Screen used for displaying chat or loged events. Contains the Client and
- * Server chatrooms.
- * 
- * @author Michael
- *
- */
 public class LogScreen extends JPanel implements ActionListener {
-	public static ChatRoom serverRoom;
-	public static ChatRoomClient clientRoom;
-
-	public static Thread creationThread;
-
-	public static String userName = "Bob";
+	public ChatRoom serverRoom;
+	public ChatRoomClient clientRoom;
 
 	public JTextArea chat = new JTextArea();
 	public JScrollPane cont = new JScrollPane(chat);
@@ -36,10 +25,6 @@ public class LogScreen extends JPanel implements ActionListener {
 	public JTextPane Input = new JTextPane();
 	public JButton Submit = new JButton("Send");
 
-	/**
-	 * Initializes a Log Screen with a input box, submit button, and message
-	 * box.
-	 */
 	public LogScreen() {
 		super(null, true);
 		setBounds(0, 400, 800, 200);
@@ -54,70 +39,46 @@ public class LogScreen extends JPanel implements ActionListener {
 		add(Submit);
 	}
 
-	/**
-	 * Calls the ServerCreator to create a new Server with the specified
-	 * settings. Also sets the client to null to avoid using both client and
-	 * server at the same time.
-	 */
 	public void host() {
 		clientRoom = null;
-		ServerCreation.createServer();
+		serverRoom = new ChatRoom();
+		add(serverRoom);
+		repaint();
 	}
 
-	/**
-	 * Quickly creates a server using default settings. Also sets the client to
-	 * null to avoid using both client and server at the same time.
-	 */
-	public void quickHost() {
-		clientRoom = null;
-		serverRoom = new ChatRoom("RPG", false, "", 100, false, null, 13579);
-	}
-
-	/**
-	 * Joins a Server using the specified Socket to start a Client. Also sets
-	 * the server to null to avoid using both client and server at the same
-	 * time.
-	 * 
-	 * @param s
-	 *            The socket, created by Input, to be used to connect to the
-	 *            server.
-	 */
 	public void join(Socket s) {
 		serverRoom = null;
-		clientRoom = new ChatRoomClient("RPG", s);
+		clientRoom = new ChatRoomClient("DND", s);
 		add(clientRoom);
 		repaint();
 	}
 
-	/**
-	 * Gets messages from the Server and Client Chat Rooms.
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (clientRoom != null) {
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = userName + ": " + i;
+					String s = Start.UserName + ": " + i;
 					clientRoom.out.println(s);
 					Input.setText("");
 				}
 			}
-		} else if (serverRoom != null) {
+		}else if(serverRoom != null){
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = userName + ": " + i;
+					String s = Start.UserName + ": " + i;
 					serverRoom.newMessage(s);
 					Server.Messages.add(s);
 					Input.setText("");
 				}
 			}
-		} else {
+		}else{
 			if (e.getSource().equals(Submit)) {
 				String i;
 				if ((i = Input.getText()).length() > 0) {
-					String s = userName + ": " + i;
+					String s = Start.UserName + ": " + i;
 					chat.append(s + "\n");
 					Input.setText("");
 				}

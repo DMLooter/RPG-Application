@@ -5,10 +5,8 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
-import combat.Entity;
 import data.tree.DataListener;
 import data.tree.EntityDataModel;
 import data.tree.EntityNode;
@@ -21,21 +19,9 @@ import data.tree.Party;
 import data.tree.Root;
 import data.tree.Section;
 
-/**
- * Screen used to display {@link Entity Entity's} data in a {@link JTree} using
- * a custom {@link EntityDataModel}.
- * 
- * @author Michael
- *
- */
 public class DataScreen extends JPanel {
 	JTree tree;
-	EntityDataModel treeModel;
-	Root top;
 
-	/**
-	 * Method to initialize the Screen, calls {@link #setupTree() setupTree}.
-	 */
 	public DataScreen() {
 		super(null, true);
 		setBounds(0, 0, 300, 400);
@@ -45,21 +31,15 @@ public class DataScreen extends JPanel {
 		add(treeView);
 	}
 
-	/**
-	 * Initializes the {@link JTree} by activating the {@link FieldRenderer
-	 * renderer} and {@link FieldEditor editor} for the {@link EntityDataModel},
-	 * and calling {@link #updateNodes(Root) updateNodes} on the root node.
-	 */
 	public void setupTree() {
 		DataListener listener = new DataListener();
-		top = new Root("Parties");
-		treeModel = new EntityDataModel(top);
+		Root top = new Root("Parties");
+		EntityDataModel treeModel = new EntityDataModel(top);
 		treeModel.addTreeModelListener(listener);
 
 		updateNodes(top);
 
 		tree = new JTree(treeModel);
-		tree.setRootVisible(false);
 		tree.setRowHeight(0);
 		FieldRenderer renderer = new FieldRenderer();
 		tree.setCellRenderer(renderer);
@@ -70,26 +50,8 @@ public class DataScreen extends JPanel {
 		tree.setCellEditor(editor);
 		tree.setEditable(true);
 	}
-	
-	public void redraw(Node n){
-		((EntityDataModel) tree.getModel()).nodeStructureChanged(n);
-	}
-	
-	public void updateNodes(){
-		top.clear();
-		updateNodes(top);
-		((EntityDataModel) tree.getModel()).reload();
-		tree.updateUI();
-		System.out.println("FOUND");
-	}
 
-	/**
-	 * Method for updating the tree when the Entity list is updated.
-	 * 
-	 * @param top
-	 *            the root node of the tree.
-	 */
-	public static void updateNodes(Root top) {
+	public void updateNodes(Root top) {
 		Party party = null;
 		Section category = null;
 		EntityNode entity = null;
@@ -105,23 +67,18 @@ public class DataScreen extends JPanel {
 			category = new Section("Ability Scores");
 			entity.addSection(category);
 
-			field = new IntegerField("Str", e.Str, 0, 20, e.ID, "Str");
-			System.out.println(e.Str);
+			field = new IntegerField("Str", e.Str, 0, 20);
 			category.addField(field);
-			field = new IntegerField("Con", e.Con, 0, 20, e.ID, "Con");
+			field = new IntegerField("Con", e.Con, 0, 20);
 			category.addField(field);
-			field = new IntegerField("Dex", e.Dex, 0, 20, e.ID, "Dex");
+			field = new IntegerField("Dex", e.Dex, 0, 20);
 			category.addField(field);
-			field = new IntegerField("Int", e.Int, 0, 20, e.ID, "Int");
+			field = new IntegerField("Int", e.Int, 0, 20);
 			category.addField(field);
-			field = new IntegerField("Wis", e.Wis, 0, 20, e.ID, "Wis");
+			field = new IntegerField("Wis", e.Wis, 0, 20);
 			category.addField(field);
-			field = new IntegerField("Cha", e.Cha, 0, 20, e.ID, "Cha");
+			field = new IntegerField("Cha", e.Cha, 0, 20);
 			category.addField(field);
 		}
-	}
-
-	public Root getRootNode(){
-		return top;
 	}
 }

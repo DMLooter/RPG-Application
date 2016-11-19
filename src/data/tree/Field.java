@@ -1,17 +1,11 @@
 package data.tree;
 
-import combat.Entity;
 
-public class Field extends Node {
+public class Field extends Node{
 	public String type;
-	protected int entityID;
-	protected String fieldName;
-
-	public Field(String name, String type, int ent, String fID) {
+	public Field(String name, String type) {
 		super(name);
 		this.type = type;
-		entityID = ent;
-		fieldName = fID;
 	}
 
 	@Override
@@ -33,11 +27,8 @@ public class Field extends Node {
 	public boolean isLeaf() {
 		return true;
 	}
-
-	public String toString() {
+	
+	public String toString(){
 		return name;
-	}
-
-	public void update(boolean push) {
 	}
 }
