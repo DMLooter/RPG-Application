@@ -50,7 +50,21 @@ public class EntityDataModel extends DefaultTreeModel implements TreeModel {
 	}
 
 	public void valueForPathChanged(TreePath path, Object newValue) {
+		updateNode((Node) path.getLastPathComponent(), newValue);
 		System.out.println("*** valueForPathChanged : " + path + " --> " + newValue);
+		nodeChanged((Node) path.getLastPathComponent());
+	}
+
+	private void updateNode(Node n, Object newValue){
+		if(n instanceof IntegerField){
+			((IntegerField) n).value = (int) newValue;
+			((IntegerField) n).update(true);
+		}else if(n instanceof StringField){
+			((StringField) n).value = (String) newValue;
+			((StringField) n).update(true);
+		}else{
+			n.name = (String) newValue;
+		}
 	}
 
 }
