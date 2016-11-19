@@ -3,11 +3,6 @@ package chat.server;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,19 +10,12 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-
-import main.Main;
 
 import chat.Bot;
-import chat.main.Start;
+import main.Main;
 
-public class ChatRoom extends JPanel implements Runnable{
+public class ChatRoom extends JPanel implements Runnable {
 
 	public static ArrayList<Bot> Bots = new ArrayList<Bot>();
 
@@ -44,9 +32,10 @@ public class ChatRoom extends JPanel implements Runnable{
 	public InputStream in;
 	public OutputStream out;
 
-	public ChatRoom(){
+	public ChatRoom() {
 		this("DND", false, "", 100, false, null, 13579);
 	}
+
 	public ChatRoom(String Name, boolean Vis, String Pass, int max, boolean Log, File LogF, int p) {
 		super(null, true);
 		setSize(800, 200);

@@ -2,7 +2,11 @@ package main;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
-
+/**
+ * Screen used for displaying the game map or other relevant visual aides.
+ * @author Michael
+ *
+ */
 public class GameScreen extends JPanel {
 	public GameScreen(){
 		super(null, true);
